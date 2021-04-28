@@ -13,7 +13,19 @@ interface Content {
 export default class BtcAnalyzer implements Analyzer {
 	public url: string;
 	public filePath: string;
-	constructor(url: string, filePath: string) {
+	// constructor(url: string, filePath: string) {
+	// 	this.url = url;
+	// 	this.filePath = path.resolve(__dirname, filePath);
+	// }
+	// 单例模式改造
+	private static instance: BtcAnalyzer;
+	static getInstance(url: string, filePath: string) {
+		if (!BtcAnalyzer.instance) {
+			BtcAnalyzer.instance = new BtcAnalyzer(url, filePath);
+		}
+		return BtcAnalyzer.instance;
+	}
+	private constructor(url: string, filePath: string) {
 		this.url = url;
 		this.filePath = path.resolve(__dirname, filePath);
 	}
@@ -25,10 +37,12 @@ export default class BtcAnalyzer implements Analyzer {
 	private getListInfo(html: string): Content {
 		const newsList: NewsList[] = [];
 		const $ = cheerio.load(html);
-		const newslist = $('.article_list >li');
+		const newslist = $('.article-item');
 		newslist.map((index, elem) => {
-			const title = $(elem).find('.title').text();
-			const viewNum = parseInt($(elem).find('.info .view').text());
+			const title = $(elem).find('.article-item__content h6').text();
+			const viewNum = parseInt(
+				$(elem).find('.article-item__content .bbt-flex>span:last-child').text()
+			);
 			newsList.push({ title, viewNum });
 		});
 		return {

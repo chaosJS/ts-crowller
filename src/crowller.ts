@@ -6,7 +6,7 @@ export interface Analyzer {
 	analyze: (html: string) => void;
 }
 class Crowller {
-	async getRawHtml(url: string) {
+	private async getRawHtml(url: string) {
 		const res = await superagent.get(url).set({
 			'User-Agent':
 				'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36',
@@ -14,7 +14,7 @@ class Crowller {
 		return res.text;
 	}
 
-	async initSpider() {
+	private async initSpider() {
 		const html = await this.getRawHtml(this.analyzer.url);
 		this.analyzer.analyze(html);
 	}
@@ -23,7 +23,11 @@ class Crowller {
 	}
 }
 
-const btcAnalyzer = new BtcAnalyzer(
+// const btcAnalyzer = new BtcAnalyzer(
+// 	'https://m.8btc.com/',
+// 	'../data/newsInfo.json'
+// );
+const btcAnalyzer = BtcAnalyzer.getInstance(
 	'https://m.8btc.com/',
 	'../data/newsInfo.json'
 );
