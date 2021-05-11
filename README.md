@@ -4,3 +4,9 @@
 4. 单例模式
 5. 增加 build 执行 tsc 编译 ts 为 js
    1. `tsc -w` 自动监测 ts 文件变动
+   2. add concurrently 合并 `tsc -w` 和 `nodemon ` 命令
+6. tsconfig 配置项 直接运行 tsc 会使用 tsconfig.js 文件
+   1. `noImplicitAny` strict 为 true 时 是否显式的设置 any
+   2. `strictNullChecks` 强制检查 null 的赋值
+7. 联合类型和类型保护
+   1. 阿斯顿
