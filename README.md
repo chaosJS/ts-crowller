@@ -9,4 +9,4 @@
    1. `noImplicitAny` strict 为 true 时 是否显式的设置 any
    2. `strictNullChecks` 强制检查 null 的赋值
 7. 联合类型和类型保护
-   1. 阿斯顿
+8. d.ts 编写
