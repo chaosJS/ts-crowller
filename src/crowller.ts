@@ -5,7 +5,7 @@ export interface Analyzer {
 	filePath: string;
 	analyze: (html: string) => void;
 }
-class Crowller {
+export default class Crowller {
 	private async getRawHtml(url: string) {
 		const res = await superagent.get(url).set({
 			'User-Agent':
@@ -27,8 +27,8 @@ class Crowller {
 // 	'https://m.8btc.com/',
 // 	'../data/newsInfo.json'
 // );
-const btcAnalyzer = BtcAnalyzer.getInstance(
-	'https://m.8btc.com/',
-	'../data/newsInfo.json'
-);
-const crowller = new Crowller(btcAnalyzer);
+// const btcAnalyzer = BtcAnalyzer.getInstance(
+// 	'https://m.8btc.com/',
+// 	'../data/newsInfo.json'
+// );
+// const crowller = new Crowller(btcAnalyzer);

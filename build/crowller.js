@@ -40,7 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var superagent_1 = __importDefault(require("superagent"));
-var _8btcAnalyzer_1 = __importDefault(require("./8btcAnalyzer"));
 var Crowller = /** @class */ (function () {
     function Crowller(analyzer) {
         this.analyzer = analyzer;
@@ -77,9 +76,13 @@ var Crowller = /** @class */ (function () {
     };
     return Crowller;
 }());
+exports.default = Crowller;
 // const btcAnalyzer = new BtcAnalyzer(
 // 	'https://m.8btc.com/',
 // 	'../data/newsInfo.json'
 // );
-var btcAnalyzer = _8btcAnalyzer_1.default.getInstance('https://m.8btc.com/', '../data/newsInfo.json');
-var crowller = new Crowller(btcAnalyzer);
+// const btcAnalyzer = BtcAnalyzer.getInstance(
+// 	'https://m.8btc.com/',
+// 	'../data/newsInfo.json'
+// );
+// const crowller = new Crowller(btcAnalyzer);
