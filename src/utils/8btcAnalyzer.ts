@@ -19,15 +19,15 @@ export default class BtcAnalyzer implements Analyzer {
 	// }
 	// 单例模式改造
 	private static instance: BtcAnalyzer;
-	static getInstance(url: string, filePath: string) {
+	static getInstance(url: string) {
 		if (!BtcAnalyzer.instance) {
-			BtcAnalyzer.instance = new BtcAnalyzer(url, filePath);
+			BtcAnalyzer.instance = new BtcAnalyzer(url);
 		}
 		return BtcAnalyzer.instance;
 	}
-	private constructor(url: string, filePath: string) {
+	private constructor(url: string) {
 		this.url = url;
-		this.filePath = path.resolve(__dirname, filePath);
+		this.filePath = path.resolve(__dirname, '../../data/newsInfo.json');
 	}
 	public analyze(html: string) {
 		const res = this.getListInfo(html);

@@ -1,5 +1,4 @@
 import superagent from 'superagent';
-import BtcAnalyzer from './8btcAnalyzer';
 export interface Analyzer {
 	url: string;
 	filePath: string;
@@ -22,13 +21,3 @@ export default class Crowller {
 		this.initSpider();
 	}
 }
-
-// const btcAnalyzer = new BtcAnalyzer(
-// 	'https://m.8btc.com/',
-// 	'../data/newsInfo.json'
-// );
-// const btcAnalyzer = BtcAnalyzer.getInstance(
-// 	'https://m.8btc.com/',
-// 	'../data/newsInfo.json'
-// );
-// const crowller = new Crowller(btcAnalyzer);
