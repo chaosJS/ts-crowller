@@ -10,16 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-function get(path) {
-    return function (target, key, descriptor) {
-        // metadataKey: any, metadataValue: any, target: Object, propertyKey: string
-        // 定义元数据，自定义数据
-        Reflect.defineMetadata('path', path, target, key);
-    };
-}
+var decorator_1 = require("./decorator");
+var util_1 = require("../utils/util");
 var LoginController = /** @class */ (function () {
     function LoginController() {
     }
+    LoginController.prototype.logout = function (req, res) {
+        if (req.session) {
+            req.session.login = undefined;
+        }
+        // res.redirect('/');
+        // data 字段返回一个true
+        res.json(util_1.getResData(true));
+    };
     LoginController.prototype.home = function (req, res) {
         // 已经登陆访问首页
         var isLogin = req.session ? req.session.login : undefined;
@@ -31,10 +34,19 @@ var LoginController = /** @class */ (function () {
         }
     };
     __decorate([
-        get('/'),
+        decorator_1.get('/logout'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", void 0)
+    ], LoginController.prototype, "logout", null);
+    __decorate([
+        decorator_1.get('/'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "home", null);
+    LoginController = __decorate([
+        decorator_1.controller
+    ], LoginController);
     return LoginController;
 }());

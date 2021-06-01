@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var cookie_session_1 = __importDefault(require("cookie-session"));
-var router_1 = __importDefault(require("./router"));
+var decorator_1 = require("./controller/decorator");
+require("./controller/loginController");
 var app = express_1.default();
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(cookie_session_1.default({
@@ -18,7 +19,7 @@ app.use(function (req, res, next) {
     req.myName = 'lc';
     next();
 });
-app.use(router_1.default);
+app.use(decorator_1.router);
 app.listen(7001, function () {
     console.log('server is running');
 });

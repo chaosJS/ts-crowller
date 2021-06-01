@@ -1,13 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import 'reflect-metadata';
-function get(path: string) {
-	return (target: any, key: string, descriptor: PropertyDescriptor) => {
-		// metadataKey: any, metadataValue: any, target: Object, propertyKey: string
-		// 定义元数据，自定义数据
-		Reflect.defineMetadata('path', path, target, key);
-	};
-}
+import { controller, get } from './decorator';
+import { getResData } from '../utils/util';
+@controller
 class LoginController {
+	@get('/logout')
+	logout(req: Request, res: Response) {
+		if (req.session) {
+			req.session.login = undefined;
+		}
+		// res.redirect('/');
+		// data 字段返回一个true
+		res.json(getResData(true));
+	}
 	@get('/')
 	home(req: Request, res: Response) {
 		// 已经登陆访问首页

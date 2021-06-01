@@ -1,7 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
-import router from './router';
+import { router } from './controller/decorator';
+import './controller/loginController';
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
