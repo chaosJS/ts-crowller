@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import 'reflect-metadata';
-import { controller, get, post } from './decorator';
+import { controller, get, post } from '../decorator';
 import { getResData } from '../utils/util';
-@controller
+
+// @controller('/abc')
+@controller('/')
 class LoginController {
 	@post('/login')
-	login(req: Request, res: Response) {
+	login(req: Request, res: Response): void {
 		const { password } = req.body;
 		const isLogin = req.session ? req.session.login : undefined;
 		if (isLogin) {
@@ -24,7 +26,7 @@ class LoginController {
 		}
 	}
 	@get('/logout')
-	logout(req: Request, res: Response) {
+	logout(req: Request, res: Response): void {
 		if (req.session) {
 			req.session.login = undefined;
 		}
@@ -33,7 +35,7 @@ class LoginController {
 		res.json(getResData(true));
 	}
 	@get('/')
-	home(req: Request, res: Response) {
+	home(req: Request, res: Response): void {
 		// 已经登陆访问首页
 		const isLogin = req.session ? req.session.login : undefined;
 		if (isLogin) {

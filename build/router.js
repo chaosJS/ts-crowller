@@ -1,5 +1,6 @@
 "use strict";
-// import { Router, Request, Response, NextFunction } from 'express';
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
 // import BtcAnalyzer from './utils/8btcAnalyzer';
 // import Crowller from './utils/crowller';
 // import { getResData } from './utils/util';
@@ -88,4 +89,4 @@
 // 		}
 // 	});
 // });
-// export default router;
+exports.default = express_1.Router();

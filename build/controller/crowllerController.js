@@ -15,11 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var _8btcAnalyzer_1 = __importDefault(require("../utils/8btcAnalyzer"));
 var crowller_1 = __importDefault(require("../utils/crowller"));
-var decorator_1 = require("./decorator");
+var decorator_1 = require("../decorator");
 var util_1 = require("../utils/util");
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
 var checkLogin = function (req, res, next) {
+    console.log('login middleware');
     var isLogin = req.session ? req.session.login : undefined;
     if (isLogin) {
         next();
@@ -28,6 +29,10 @@ var checkLogin = function (req, res, next) {
         // res.send('请先登陆');
         res.json(util_1.getResData(null, '请先登陆'));
     }
+};
+var testMiddleware = function (req, res, next) {
+    console.log('test middleware');
+    next();
 };
 var CrowllerController = /** @class */ (function () {
     function CrowllerController() {
@@ -61,6 +66,7 @@ var CrowllerController = /** @class */ (function () {
     __decorate([
         decorator_1.get('/getData'),
         decorator_1.useMiddleware(checkLogin),
+        decorator_1.useMiddleware(testMiddleware),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
@@ -73,7 +79,7 @@ var CrowllerController = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], CrowllerController.prototype, "showData", null);
     CrowllerController = __decorate([
-        decorator_1.controller
+        decorator_1.controller('/')
     ], CrowllerController);
     return CrowllerController;
 }());

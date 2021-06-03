@@ -1,4 +1,4 @@
-// import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 // import BtcAnalyzer from './utils/8btcAnalyzer';
 // import Crowller from './utils/crowller';
 // import { getResData } from './utils/util';
@@ -90,4 +90,4 @@
 // 		}
 // 	});
 // });
-// export default router;
+export default Router();

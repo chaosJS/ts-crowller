@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import 'reflect-metadata';
 import BtcAnalyzer from '../utils/8btcAnalyzer';
 import Crowller from '../utils/crowller';
-import { controller, get, useMiddleware } from './decorator';
+import { controller, useMiddleware, get } from '../decorator';
 import { getResData } from '../utils/util';
 import fs from 'fs';
 import path from 'path';
@@ -16,7 +16,8 @@ interface RequestWithBody extends Request {
 	};
 }
 
-const checkLogin = (req: Request, res: Response, next: NextFunction) => {
+const checkLogin = (req: Request, res: Response, next: NextFunction): void => {
+	console.log('login middleware');
 	const isLogin = req.session ? req.session.login : undefined;
 	if (isLogin) {
 		next();
@@ -25,11 +26,20 @@ const checkLogin = (req: Request, res: Response, next: NextFunction) => {
 		res.json(getResData(null, '请先登陆'));
 	}
 };
-@controller
+const testMiddleware = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+): void => {
+	console.log('test middleware');
+	next();
+};
+@controller('/')
 class CrowllerController {
 	@get('/getData')
 	@useMiddleware(checkLogin)
-	getData(req: RequestWithBody, res: Response) {
+	@useMiddleware(testMiddleware)
+	getData(req: RequestWithBody, res: Response): void {
 		//express.bodyParser() is no longer bundled as part of express.
 		// You need to install it separately before loading:
 		const btcAnalyzer = BtcAnalyzer.getInstance('https://m.8btc.com/');
@@ -46,7 +56,7 @@ class CrowllerController {
 
 	@get('/showData')
 	@useMiddleware(checkLogin)
-	showData(req: RequestWithBody, res: Response) {
+	showData(req: RequestWithBody, res: Response): void {
 		fs.stat(
 			path.resolve(__dirname, '../../data/newsInfo.json'),
 			(err, stat) => {

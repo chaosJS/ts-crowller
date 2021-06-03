@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-var decorator_1 = require("./decorator");
+var decorator_1 = require("../decorator");
 var util_1 = require("../utils/util");
+// @controller('/abc')
 var LoginController = /** @class */ (function () {
     function LoginController() {
     }
@@ -72,7 +73,7 @@ var LoginController = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "home", null);
     LoginController = __decorate([
-        decorator_1.controller
+        decorator_1.controller('/')
     ], LoginController);
     return LoginController;
 }());

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var cookie_session_1 = __importDefault(require("cookie-session"));
-var decorator_1 = require("./controller/decorator");
+var router_1 = __importDefault(require("./router"));
 require("./controller/loginController");
 require("./controller/crowllerController");
 var app = express_1.default();
@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
     req.myName = 'lc';
     next();
 });
-app.use(decorator_1.router);
+app.use(router_1.default);
 app.listen(7001, function () {
     console.log('server is running');
 });
