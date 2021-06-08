@@ -4,12 +4,12 @@ import { controller, get, post } from '../decorator';
 import { getResData } from '../utils/util';
 
 // @controller('/abc')
-@controller('/')
+@controller('/api')
 class LoginController {
 	@post('/login')
 	login(req: Request, res: Response): void {
 		const { password } = req.body;
-		const isLogin = req.session ? req.session.login : undefined;
+		const isLogin = req.session ? req.session.login : false;
 		if (isLogin) {
 			// res.send('已经登陆');
 			res.json(getResData(false, '已经登陆'));
@@ -28,32 +28,14 @@ class LoginController {
 	@get('/logout')
 	logout(req: Request, res: Response): void {
 		if (req.session) {
-			req.session.login = undefined;
+			req.session.login = false;
 		}
-		// res.redirect('/');
 		// data 字段返回一个true
 		res.json(getResData(true));
 	}
-	@get('/')
-	home(req: Request, res: Response): void {
-		// 已经登陆访问首页
-		const isLogin = req.session ? req.session.login : undefined;
-		if (isLogin) {
-			res.send(
-				`
-			<a href="/getData">爬取数据</a>
-			<a href="/logout">退出</a>
-			`
-			);
-		} else {
-			res.send(
-				`
-			<form method="post" action="/login">
-				<input type="password" name="password"></input>
-				<button type="submit">登陆</button>
-			</form>
-			`
-			);
-		}
+	@get('/isLogin')
+	isLogin(req: Request, res: Response): void {
+		const isLogin: boolean = !!(req.session ? req.session.login : false);
+		res.json(getResData(isLogin));
 	}
 }

@@ -18,7 +18,7 @@ var LoginController = /** @class */ (function () {
     }
     LoginController.prototype.login = function (req, res) {
         var password = req.body.password;
-        var isLogin = req.session ? req.session.login : undefined;
+        var isLogin = req.session ? req.session.login : false;
         if (isLogin) {
             // res.send('已经登陆');
             res.json(util_1.getResData(false, '已经登陆'));
@@ -38,21 +38,14 @@ var LoginController = /** @class */ (function () {
     };
     LoginController.prototype.logout = function (req, res) {
         if (req.session) {
-            req.session.login = undefined;
+            req.session.login = false;
         }
-        // res.redirect('/');
         // data 字段返回一个true
         res.json(util_1.getResData(true));
     };
-    LoginController.prototype.home = function (req, res) {
-        // 已经登陆访问首页
-        var isLogin = req.session ? req.session.login : undefined;
-        if (isLogin) {
-            res.send("\n\t\t\t<a href=\"/getData\">\u722C\u53D6\u6570\u636E</a>\n\t\t\t<a href=\"/logout\">\u9000\u51FA</a>\n\t\t\t");
-        }
-        else {
-            res.send("\n\t\t\t<form method=\"post\" action=\"/login\">\n\t\t\t\t<input type=\"password\" name=\"password\"></input>\n\t\t\t\t<button type=\"submit\">\u767B\u9646</button>\n\t\t\t</form>\n\t\t\t");
-        }
+    LoginController.prototype.isLogin = function (req, res) {
+        var isLogin = !!(req.session ? req.session.login : false);
+        res.json(util_1.getResData(isLogin));
     };
     __decorate([
         decorator_1.post('/login'),
@@ -67,13 +60,13 @@ var LoginController = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "logout", null);
     __decorate([
-        decorator_1.get('/'),
+        decorator_1.get('/isLogin'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
-    ], LoginController.prototype, "home", null);
+    ], LoginController.prototype, "isLogin", null);
     LoginController = __decorate([
-        decorator_1.controller('/')
+        decorator_1.controller('/api')
     ], LoginController);
     return LoginController;
 }());
