@@ -34,7 +34,7 @@ const testMiddleware = (
 	console.log('test middleware');
 	next();
 };
-@controller('/')
+@controller('/api')
 class CrowllerController {
 	@get('/getData')
 	@useMiddleware(checkLogin)
@@ -44,14 +44,7 @@ class CrowllerController {
 		// You need to install it separately before loading:
 		const btcAnalyzer = BtcAnalyzer.getInstance('https://m.8btc.com/');
 		new Crowller(btcAnalyzer);
-		res.send(
-			`
-    			<p>
-    			get data success
-    			</p>
-    			<a href="/showData">show data</a>
-    			`
-		);
+		res.json(getResData(true));
 	}
 
 	@get('/showData')

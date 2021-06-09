@@ -42,7 +42,7 @@ var CrowllerController = /** @class */ (function () {
         // You need to install it separately before loading:
         var btcAnalyzer = _8btcAnalyzer_1.default.getInstance('https://m.8btc.com/');
         new crowller_1.default(btcAnalyzer);
-        res.send("\n    \t\t\t<p>\n    \t\t\tget data success\n    \t\t\t</p>\n    \t\t\t<a href=\"/showData\">show data</a>\n    \t\t\t");
+        res.json(util_1.getResData(true));
     };
     CrowllerController.prototype.showData = function (req, res) {
         fs_1.default.stat(path_1.default.resolve(__dirname, '../../data/newsInfo.json'), function (err, stat) {
@@ -79,7 +79,7 @@ var CrowllerController = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], CrowllerController.prototype, "showData", null);
     CrowllerController = __decorate([
-        decorator_1.controller('/')
+        decorator_1.controller('/api')
     ], CrowllerController);
     return CrowllerController;
 }());
